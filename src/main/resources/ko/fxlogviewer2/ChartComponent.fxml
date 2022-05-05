@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.geometry.Insets?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ko.fxlogviewer2.ChartComponent">
+	<HBox AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="10"
+		AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="0">
+		<children>
+			<ChoiceBox fx:id="firstChoiceBox" minWidth="-Infinity"
+				onAction="#updateFirstChoiceBox">
+				<HBox.margin>
+					<Insets right="10.0" />
+				</HBox.margin>
+			</ChoiceBox>
+			<ChoiceBox fx:id="secondChoiceBox" minWidth="-Infinity"
+				onAction="#updateSecondChoiceBox">
+				<HBox.margin>
+					<Insets right="10.0" />
+				</HBox.margin>
+			</ChoiceBox>
+			<ChoiceBox fx:id="thirdChoiceBox"
+				onAction="#updateThirdChoiceBox">
+				<HBox.margin>
+					<Insets right="10.0" />
+				</HBox.margin>
+			</ChoiceBox>
+		</children>
+	</HBox>
+
+	<Button text=" ❌ Close graph" onAction="#closeGraph"
+		AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
+	</Button>
+
+	<LineChart fx:id="lineCharts" animated="false"
+		AnchorPane.bottomAnchor="0" AnchorPane.topAnchor="30"
+		AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="0">
+		<xAxis>
+			<CategoryAxis side="BOTTOM" />
+		</xAxis>
+		<yAxis>
+			<NumberAxis side="LEFT" />
+		</yAxis>
+	</LineChart>
+
+</AnchorPane>

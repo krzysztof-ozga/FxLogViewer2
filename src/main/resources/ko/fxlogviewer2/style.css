@@ -1,0 +1,10 @@
+.thick-chart .chart-series-line {    
+-fx-stroke-width: 2px;
+}
+
+.chart-line-symbol {
+}
+
+ .chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
