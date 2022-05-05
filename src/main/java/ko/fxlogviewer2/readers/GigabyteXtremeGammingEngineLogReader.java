@@ -18,8 +18,8 @@ public GigabyteXtremeGammingEngineLogReader(String fileName) {
 
 
 public ArrayList<String>  getHeaderColumns() throws Exception {
-	
-	ArrayList<String>columns=new ArrayList<String>();
+
+	ArrayList<String>columns=new ArrayList<>();
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
 	 String line = reader.readLine();
