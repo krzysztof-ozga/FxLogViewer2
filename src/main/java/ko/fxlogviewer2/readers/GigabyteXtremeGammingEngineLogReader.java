@@ -20,7 +20,6 @@ public GigabyteXtremeGammingEngineLogReader(String fileName) {
 public ArrayList<String>  getHeaderColumns() throws Exception {
 	
 	ArrayList<String>columns=new ArrayList<String>();
-	
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
 	 String line = reader.readLine();
@@ -34,7 +33,6 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 
 
 public ArrayList<String[]> getData() throws Exception {
-	
 	ArrayList<String[]>data=new ArrayList<String[]>();
 	 BufferedReader reader;
 	try {
