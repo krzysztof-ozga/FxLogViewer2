@@ -1,7 +1,7 @@
-module ko.fxlogviewer2 {
+module ko.fxlogviewer {
     requires javafx.controls;
     requires javafx.fxml;
     
-    opens ko.fxlogviewer2 to javafx.fxml;
-    exports ko.fxlogviewer2;
+    opens ko.fxlogviewer to javafx.fxml;
+    exports ko.fxlogviewer;
 }

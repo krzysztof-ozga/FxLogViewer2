@@ -1,4 +1,4 @@
-package ko.fxlogviewer2.readers;
+package ko.fxlogviewer.readers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import ko.fxlogviewer2.readers.inter.LogReader;
+import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GPUZLogReader implements LogReader{
 

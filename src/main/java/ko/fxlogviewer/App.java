@@ -1,4 +1,4 @@
-package ko.fxlogviewer2;
+package ko.fxlogviewer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

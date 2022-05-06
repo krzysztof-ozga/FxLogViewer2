@@ -1,4 +1,4 @@
-package ko.fxlogviewer2;
+package ko.fxlogviewer;
 
 import java.io.File;
 import java.net.URL;
@@ -19,12 +19,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import ko.fxlogviewer2.readers.GPUZLogReader;
-import ko.fxlogviewer2.readers.GigabyteXtremeGammingEngineLogReader;
-import ko.fxlogviewer2.readers.HWiNFOLogReader;
-import ko.fxlogviewer2.readers.MsiAfterburnerLogReader;
-import ko.fxlogviewer2.readers.SpeedFanLogReader;
-import ko.fxlogviewer2.readers.inter.LogReader;
+import ko.fxlogviewer.readers.GPUZLogReader;
+import ko.fxlogviewer.readers.GigabyteXtremeGammingEngineLogReader;
+import ko.fxlogviewer.readers.HWiNFOLogReader;
+import ko.fxlogviewer.readers.MsiAfterburnerLogReader;
+import ko.fxlogviewer.readers.SpeedFanLogReader;
+import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GuiController implements Initializable {
 
@@ -120,7 +120,7 @@ public class GuiController implements Initializable {
                 this.data = r.getData();
 
 
-                ChartComponent m = new ChartComponent(columns, filteredData);
+                ChartComponent m = new ChartComponent(columns, data);
                 m.setPrefWidth(Double.MAX_VALUE);
                 chartsContrainer.getItems().addAll(m);
                 this.updatePrecision();

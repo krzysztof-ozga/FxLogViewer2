@@ -1,4 +1,4 @@
-package ko.fxlogviewer2.readers.inter;
+package ko.fxlogviewer.readers.inter;
 
 import java.util.ArrayList;
 

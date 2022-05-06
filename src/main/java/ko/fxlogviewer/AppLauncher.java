@@ -1,4 +1,4 @@
-package ko.fxlogviewer2;
+package ko.fxlogviewer;
 public class AppLauncher {
 
     public static void main(String[] args) {

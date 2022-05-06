@@ -1,4 +1,4 @@
-package ko.fxlogviewer2;
+package ko.fxlogviewer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +17,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
@@ -36,9 +37,12 @@ public class ChartComponent extends Pane implements Initializable {
 
 	@FXML
 	private ChoiceBox<String> secondChoiceBox;
-
 	@FXML
 	private ChoiceBox<String> thirdChoiceBox;
+
+	@FXML
+	private Button closeGraphButton;
+
 
 	ArrayList<String> columns = new ArrayList<>();
 	ArrayList<String[]> data = new ArrayList<>();
@@ -55,9 +59,9 @@ public class ChartComponent extends Pane implements Initializable {
 		this.columns = _columns;
 		this.data = _data;
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChartComponent.fxml"));
-		fxmlLoader.setController(this);
+		FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ChartComponent.fxml"));
 		try {
+			fxmlLoader.setController(this);
 			view = (AnchorPane) fxmlLoader.load();
 			view.prefWidthProperty().bind(this.widthProperty());
 			view.prefHeightProperty().bind(this.heightProperty());
@@ -135,6 +139,11 @@ public class ChartComponent extends Pane implements Initializable {
 		this.firstChoiceBox.setItems(FXCollections.observableArrayList(columns));
 		this.secondChoiceBox.setItems(FXCollections.observableArrayList(columns));
 		this.thirdChoiceBox.setItems(FXCollections.observableArrayList(columns));
+
+		firstChoiceBox.setOnAction(this::updateFirstChoiceBox);
+		secondChoiceBox.setOnAction(this::updateSecondChoiceBox);
+		thirdChoiceBox.setOnAction(this::updateThirdChoiceBox);
+		closeGraphButton.setOnAction(this::closeGraph);
 
 		Tooltip mousePositionToolTip = new Tooltip("");
 		lineCharts.setOnMouseMoved((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {

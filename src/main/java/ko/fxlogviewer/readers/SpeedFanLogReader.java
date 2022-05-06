@@ -1,4 +1,4 @@
-package ko.fxlogviewer2.readers;
+package ko.fxlogviewer.readers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,24 +6,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import ko.fxlogviewer2.readers.inter.LogReader;
+import ko.fxlogviewer.readers.inter.LogReader;
 
-public class GigabyteXtremeGammingEngineLogReader implements LogReader{
+public class SpeedFanLogReader implements LogReader{
+
 
 String file;
 
-public GigabyteXtremeGammingEngineLogReader(String fileName) {
+
+public SpeedFanLogReader(String fileName) {
 	this.file=fileName;
 }
 
 
 public ArrayList<String>  getHeaderColumns() throws Exception {
-
-	ArrayList<String>columns=new ArrayList<>();
+	
+	ArrayList<String>columns=new ArrayList<String>();
+	
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
 	 String line = reader.readLine();
-		Stream.of(line.split("\\t+")).forEach(e -> {
+		Stream.of(line.split("	")).forEach(e -> {
 		  	columns.add(e.trim());
 		});
 		columns.set(0,"");
@@ -33,6 +36,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 
 
 public ArrayList<String[]> getData() throws Exception {
+	
 	ArrayList<String[]>data=new ArrayList<String[]>();
 	 BufferedReader reader;
 	try {
@@ -40,7 +44,7 @@ public ArrayList<String[]> getData() throws Exception {
 		String line = reader.readLine(); 
 		line = reader.readLine();//ignore first line
 		while (line != null) {
-				data.add(Stream.of(line.split("\\t+")).map(String::trim).toArray(String[]::new));	
+				data.add(Stream.of(line.split("	")).map(string -> string.replace(',', '.')).toArray(String[]::new));	
 			line = reader.readLine();
 		}
 		reader.close();
@@ -50,5 +54,8 @@ public ArrayList<String[]> getData() throws Exception {
 	return data;
 }
 
-}
 
+
+
+	
+}
