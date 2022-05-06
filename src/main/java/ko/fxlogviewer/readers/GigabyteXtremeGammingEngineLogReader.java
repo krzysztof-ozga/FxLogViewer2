@@ -10,7 +10,7 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GigabyteXtremeGammingEngineLogReader implements LogReader{
 
-String file;
+ final String file;
 
 public GigabyteXtremeGammingEngineLogReader(String fileName) {
 	this.file=fileName;
@@ -32,7 +32,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 }
 
 
-public ArrayList<String[]> getData() throws Exception {
+public ArrayList<String[]> getData(){
 	ArrayList<String[]>data=new ArrayList<String[]>();
 	 BufferedReader reader;
 	try {

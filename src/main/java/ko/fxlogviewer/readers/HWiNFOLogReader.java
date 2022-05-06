@@ -10,7 +10,7 @@ import ko.fxlogviewer.readers.inter.LogReader;
 public class HWiNFOLogReader implements LogReader{
 
 
-String file;
+final String file;
 
 
 public HWiNFOLogReader(String fileName) {
@@ -42,7 +42,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 }
 
 
-public ArrayList<String[]> getData() throws Exception {
+public ArrayList<String[]> getData() {
 	
 	ArrayList<String[]>data=new ArrayList<String[]>();
 	 BufferedReader reader;
@@ -56,7 +56,7 @@ public ArrayList<String[]> getData() throws Exception {
 		while (line != null) {
 			
 			String[] lineArray=line.split(",");
-			ArrayList<String> expLine=new ArrayList();
+			ArrayList<String> expLine=new ArrayList<>();
 			
 			if(lineArray[0].trim().equals("Date"))break;
 			

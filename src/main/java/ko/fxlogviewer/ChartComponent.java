@@ -48,7 +48,7 @@ public class ChartComponent extends Pane implements Initializable {
 	ArrayList<String[]> data = new ArrayList<>();
 	ChartComponent component;
 
-	XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
+	final XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 	XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
 	XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
 
@@ -203,7 +203,7 @@ public class ChartComponent extends Pane implements Initializable {
 					mousePositionToolTip.show(node, event.getScreenX() + 15, event.getScreenY() + 15);
 
 				} catch (Exception ex) {
-
+				ex.printStackTrace();
 				}
 			}
 

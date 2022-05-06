@@ -10,13 +10,13 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class MsiAfterburnerLogReader implements LogReader {
 
-	String file;
+	final String file;
 
 	public MsiAfterburnerLogReader(String fileName) {
 		this.file = fileName;
 	}
 
-	public ArrayList<String> getHeaderColumns() throws Exception {
+	public ArrayList<String> getHeaderColumns() {
 
 		ArrayList<String> columns = new ArrayList<String>();
 
@@ -46,7 +46,7 @@ public class MsiAfterburnerLogReader implements LogReader {
 
 	}
 
-	public ArrayList<String[]> getData() throws Exception {
+	public ArrayList<String[]> getData(){
 
 		ArrayList<String[]> data = new ArrayList<String[]>();
 		BufferedReader reader;

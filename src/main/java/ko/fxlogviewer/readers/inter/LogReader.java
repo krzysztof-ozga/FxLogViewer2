@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public interface LogReader {
 
-	public ArrayList<String[]> getData() throws Exception;
+	ArrayList<String[]> getData();
 
-	public ArrayList<String> getHeaderColumns() throws Exception;
-
+	ArrayList<String> getHeaderColumns() throws Exception;
 }
