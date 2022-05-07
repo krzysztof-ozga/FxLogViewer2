@@ -28,9 +28,12 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GuiController implements Initializable {
 
+    public String windowTitle="FX Log Viewer 2";
+
     private static GuiController singleton;
 
     public GuiController() {
+        App.mainStage.setTitle(windowTitle);
         singleton = this;
     }
 
@@ -46,8 +49,6 @@ public class GuiController implements Initializable {
     @FXML
     SplitPane chartsContrainer;
 
-    @FXML
-    Label filePath;
 
     ArrayList<String> columns = new ArrayList<>();
     ArrayList<String[]> data = new ArrayList<>();
@@ -93,7 +94,8 @@ public class GuiController implements Initializable {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            filePath.setText(file.getAbsolutePath());
+
+            App.mainStage.setTitle(String.format("%s - %s",windowTitle,file.getAbsolutePath()));
 
             chartsContrainer.getItems().clear();
             if (programID.equals("GPU-Z"))
@@ -165,7 +167,7 @@ public class GuiController implements Initializable {
     private void updatePrecision() {
         filteredData.clear();
 
-        Double width = Screen.getPrimary().getBounds().getMaxX();
+        double width = Screen.getPrimary().getBounds().getMaxX();
 
         int ratio = (data.size() < width) ? 1 : (int) Math.ceil(data.size() / width);
 
@@ -185,7 +187,6 @@ public class GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
 
 }
