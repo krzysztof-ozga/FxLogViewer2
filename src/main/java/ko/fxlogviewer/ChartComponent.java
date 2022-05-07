@@ -55,7 +55,6 @@ public class ChartComponent extends Pane implements Initializable {
 	GuiController xSingleton = GuiController.getSingleton();
 
 	public ChartComponent(ArrayList<String> _columns, ArrayList<String[]> _data) {
-
 		this.columns = _columns;
 		this.data = _data;
 
@@ -78,7 +77,7 @@ public class ChartComponent extends Pane implements Initializable {
 	}
 
 	@FXML
-	public void updateFirstChoiceBox(ActionEvent event) {
+	public void updateFirstChoiceBox(@SuppressWarnings("unused") ActionEvent event) {
 
 		int index = columns.indexOf(firstChoiceBox.getValue());
 		lineCharts.getData().remove(series1);
@@ -97,22 +96,23 @@ public class ChartComponent extends Pane implements Initializable {
 	}
 
 	@FXML
-	public void updateSecondChoiceBox(ActionEvent event) {
+	public void updateSecondChoiceBox(@SuppressWarnings("unused") ActionEvent event) {
 		int index = columns.indexOf(secondChoiceBox.getValue());
 		lineCharts.getData().remove(series2);
 		if (index < 1)
 			return;
 		series2 = new XYChart.Series<String, Number>();
 		series2.setName(secondChoiceBox.getValue());
-		for (int i = 0; i < data.size(); i++)
-			series2.getData().add(new Data<String, Number>(String.valueOf(data.get(i)[0]),
-					Double.valueOf(data.get(i)[index])));
+		for (String[] datum : data)
+			series2.getData().add(new Data<String, Number>(String.valueOf(datum[0]),
+					Double.valueOf(datum[index])));
 		lineCharts.getData().add(series2);
 
 	}
 
+
 	@FXML
-	public void updateThirdChoiceBox(ActionEvent event) {
+	public void updateThirdChoiceBox(@SuppressWarnings("unused") ActionEvent event) {
 		int index = columns.indexOf(thirdChoiceBox.getValue());
 
 		lineCharts.getData().remove(series3);
@@ -120,14 +120,14 @@ public class ChartComponent extends Pane implements Initializable {
 			return;
 		series3 = new XYChart.Series<String, Number>();
 		series3.setName(thirdChoiceBox.getValue());
-		for (int i = 0; i < data.size(); i++)
-			series3.getData().add(new Data<String, Number>(String.valueOf(data.get(i)[0]),
-					Double.valueOf(data.get(i)[index])));
+		for (String[] datum : data)
+			series3.getData().add(new Data<String, Number>(String.valueOf(datum[0]),
+					Double.valueOf(datum[index])));
 		lineCharts.getData().add(series3);
 	}
 
 	@FXML
-	private void closeGraph(ActionEvent event) {
+	private void closeGraph(@SuppressWarnings("unused") ActionEvent event) {
 		GuiController.getSingleton().removeChart(this);
 	}
 
@@ -175,25 +175,25 @@ public class ChartComponent extends Pane implements Initializable {
 					int index3 = columns.indexOf(thirdChoiceBox.getValue());
 
 					if (index1 > 0) {
-						for (int i = 0; i < data.size(); i++) {
-							if (x.equals(data.get(i)[0].toString())) {
-								text += firstChoiceBox.getValue() + " : " + data.get(i)[index1].toString() + "\n";
+						for (String[] datum : data) {
+							if (x.equals(datum[0].toString())) {
+								text += firstChoiceBox.getValue() + " : " + datum[index1].toString() + "\n";
 								break;
 							}
 						}
 					}
 					if (index2 > 0) {
-						for (int i = 0; i < data.size(); i++) {
-							if (x.equals(data.get(i)[0].toString())) {
-								text += secondChoiceBox.getValue() + " : " + data.get(i)[index2].toString() + "\n";
+						for (String[] datum : data) {
+							if (x.equals(datum[0].toString())) {
+								text += secondChoiceBox.getValue() + " : " + datum[index2].toString() + "\n";
 								break;
 							}
 						}
 					}
 					if (index3 > 0) {
-						for (int i = 0; i < data.size(); i++) {
-							if (x.equals(data.get(i)[0].toString())) {
-								text += thirdChoiceBox.getValue() + " : " + data.get(i)[index3].toString() + "\n";
+						for (String[] datum : data) {
+							if (x.equals(datum[0].toString())) {
+								text += thirdChoiceBox.getValue() + " : " + datum[index3].toString() + "\n";
 								break;
 							}
 						}

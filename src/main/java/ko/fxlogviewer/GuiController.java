@@ -11,8 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -28,7 +26,7 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GuiController implements Initializable {
 
-    public String windowTitle="FX Log Viewer 2";
+    final String windowTitle="FX Log Viewer 2";
 
     private static GuiController singleton;
 
@@ -44,8 +42,6 @@ public class GuiController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
 
-    @FXML
-    private Button openButton;
     @FXML
     SplitPane chartsContrainer;
 
@@ -122,7 +118,7 @@ public class GuiController implements Initializable {
                 this.data = r.getData();
 
 
-                ChartComponent m = new ChartComponent(columns, data);
+                ChartComponent m = new ChartComponent(columns, filteredData);
                 m.setPrefWidth(Double.MAX_VALUE);
                 chartsContrainer.getItems().addAll(m);
                 this.updatePrecision();
@@ -158,8 +154,9 @@ public class GuiController implements Initializable {
         chartsContrainer.getItems().remove(c);
     }
 
+    @SuppressWarnings("unused")
     @FXML
-    private void changePrecision(ActionEvent event) {
+    private void changePrecision(@SuppressWarnings("unused") ActionEvent event) {
         this.updatePrecision();
 
     }

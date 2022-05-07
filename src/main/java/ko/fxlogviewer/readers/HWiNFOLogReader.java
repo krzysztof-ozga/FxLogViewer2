@@ -32,7 +32,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 		 if(i<1) continue;
 		 else
 		 {
-			 if(lineArray[i].indexOf("[Yes/No]")!=-1)continue;
+			 if(lineArray[i].contains("[Yes/No]"))continue;
 			 else columns.add(lineArray[i].trim());
 		 }	
 	 }
