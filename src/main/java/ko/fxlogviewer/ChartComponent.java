@@ -44,13 +44,13 @@ public class ChartComponent extends Pane implements Initializable {
 	private Button closeGraphButton;
 
 
-	ArrayList<String> columns = new ArrayList<>();
-	ArrayList<String[]> data = new ArrayList<>();
+	ArrayList<String> columns;
+	ArrayList<String[]> data;
 	ChartComponent component;
 
-	final XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-	XYChart.Series<String, Number> series2 = new XYChart.Series<String, Number>();
-	XYChart.Series<String, Number> series3 = new XYChart.Series<String, Number>();
+	final XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+	XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+	XYChart.Series<String, Number> series3 = new XYChart.Series<>();
 
 	GuiController xSingleton = GuiController.getSingleton();
 
@@ -89,8 +89,7 @@ public class ChartComponent extends Pane implements Initializable {
 
 		ArrayList<Data<String, Number>> ex = new ArrayList<>();
 
-		for (int i = 0; i < data.size(); i++)
-			ex.add(new Data<String, Number>(data.get(i)[0], Float.valueOf(data.get(i)[index])));
+		for (String[] datum : data) ex.add(new Data<>(datum[0], Float.valueOf(datum[index])));
 		series1.getData().setAll(ex);
 		lineCharts.getData().add(series1);
 	}
@@ -101,10 +100,10 @@ public class ChartComponent extends Pane implements Initializable {
 		lineCharts.getData().remove(series2);
 		if (index < 1)
 			return;
-		series2 = new XYChart.Series<String, Number>();
+		series2 = new XYChart.Series<>();
 		series2.setName(secondChoiceBox.getValue());
 		for (String[] datum : data)
-			series2.getData().add(new Data<String, Number>(String.valueOf(datum[0]),
+			series2.getData().add(new Data<>(String.valueOf(datum[0]),
 					Double.valueOf(datum[index])));
 		lineCharts.getData().add(series2);
 
@@ -118,10 +117,10 @@ public class ChartComponent extends Pane implements Initializable {
 		lineCharts.getData().remove(series3);
 		if (index < 1)
 			return;
-		series3 = new XYChart.Series<String, Number>();
+		series3 = new XYChart.Series<>();
 		series3.setName(thirdChoiceBox.getValue());
 		for (String[] datum : data)
-			series3.getData().add(new Data<String, Number>(String.valueOf(datum[0]),
+			series3.getData().add(new Data<>(String.valueOf(datum[0]),
 					Double.valueOf(datum[index])));
 		lineCharts.getData().add(series3);
 	}
@@ -135,7 +134,6 @@ public class ChartComponent extends Pane implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		lineCharts.setCreateSymbols(false);
-
 		this.firstChoiceBox.setItems(FXCollections.observableArrayList(columns));
 		this.secondChoiceBox.setItems(FXCollections.observableArrayList(columns));
 		this.thirdChoiceBox.setItems(FXCollections.observableArrayList(columns));
@@ -146,77 +144,65 @@ public class ChartComponent extends Pane implements Initializable {
 		closeGraphButton.setOnAction(this::closeGraph);
 
 		Tooltip mousePositionToolTip = new Tooltip("");
-		lineCharts.setOnMouseMoved((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+		lineCharts.setOnMouseMoved((EventHandler<? super MouseEvent>) event -> {
 
-			@Override
-			public void handle(MouseEvent event) {
+			try {
 
-				try {
+				Node node = (Node) event.getSource();
+				Axis<String> xAxis = lineCharts.getXAxis();
+				Axis<Number> yAxis = lineCharts.getYAxis();
 
-					Node node = (Node) event.getSource();
-					Axis<String> xAxis = lineCharts.getXAxis();
-					Axis<Number> yAxis = lineCharts.getYAxis();
+				Point2D mouseSceneCoords = new Point2D(event.getSceneX(), event.getSceneY());
+				double xx = xAxis.sceneToLocal(mouseSceneCoords).getX();
+				double yy = yAxis.sceneToLocal(mouseSceneCoords).getY();
 
-					Point2D mouseSceneCoords = new Point2D(event.getSceneX(), event.getSceneY());
-					double xx = xAxis.sceneToLocal(mouseSceneCoords).getX();
-					double yy = yAxis.sceneToLocal(mouseSceneCoords).getY();
+				String x = xAxis.getValueForDisplay(xx);
 
-					String x = xAxis.getValueForDisplay(xx);
-
-					if (xx < 0 || yy < 0 || x == null) {
-						mousePositionToolTip.hide();
-						return;
-					}
-
-					String text = "Date & Time: " + x + "\n";
-
-					int index1 = columns.indexOf(firstChoiceBox.getValue());
-					int index2 = columns.indexOf(secondChoiceBox.getValue());
-					int index3 = columns.indexOf(thirdChoiceBox.getValue());
-
-					if (index1 > 0) {
-						for (String[] datum : data) {
-							if (x.equals(datum[0].toString())) {
-								text += firstChoiceBox.getValue() + " : " + datum[index1].toString() + "\n";
-								break;
-							}
-						}
-					}
-					if (index2 > 0) {
-						for (String[] datum : data) {
-							if (x.equals(datum[0].toString())) {
-								text += secondChoiceBox.getValue() + " : " + datum[index2].toString() + "\n";
-								break;
-							}
-						}
-					}
-					if (index3 > 0) {
-						for (String[] datum : data) {
-							if (x.equals(datum[0].toString())) {
-								text += thirdChoiceBox.getValue() + " : " + datum[index3].toString() + "\n";
-								break;
-							}
-						}
-					}
-
-					mousePositionToolTip.setText(text);
-					mousePositionToolTip.show(node, event.getScreenX() + 15, event.getScreenY() + 15);
-
-				} catch (Exception ex) {
-				ex.printStackTrace();
+				if (xx < 0 || yy < 0 || x == null) {
+					mousePositionToolTip.hide();
+					return;
 				}
-			}
 
+				String text = "Date & Time: " + x + "\n";
+
+				int index1 = columns.indexOf(firstChoiceBox.getValue());
+				int index2 = columns.indexOf(secondChoiceBox.getValue());
+				int index3 = columns.indexOf(thirdChoiceBox.getValue());
+
+				if (index1 > 0) {
+					for (String[] datum : data) {
+						if (x.equals(datum[0])) {
+							text += firstChoiceBox.getValue() + " : " + datum[index1] + "\n";
+							break;
+						}
+					}
+				}
+				if (index2 > 0) {
+					for (String[] datum : data) {
+						if (x.equals(datum[0])) {
+							text += secondChoiceBox.getValue() + " : " + datum[index2] + "\n";
+							break;
+						}
+					}
+				}
+				if (index3 > 0) {
+					for (String[] datum : data) {
+						if (x.equals(datum[0])) {
+							text += thirdChoiceBox.getValue() + " : " + datum[index3] + "\n";
+							break;
+						}
+					}
+				}
+
+				mousePositionToolTip.setText(text);
+				mousePositionToolTip.show(node, event.getScreenX() + 15, event.getScreenY() + 15);
+
+			} catch (Exception ex) {
+			ex.printStackTrace();
+			}
 		});
 
-		lineCharts.setOnMouseExited((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				mousePositionToolTip.hide();
-			}
-
-		});
+		lineCharts.setOnMouseExited((EventHandler<? super MouseEvent>) event -> mousePositionToolTip.hide());
 
 		lineCharts.getStyleClass().add("thick-chart");
 	}

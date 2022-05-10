@@ -21,14 +21,12 @@ public GPUZLogReader(String fileName) {
 
 public ArrayList<String>  getHeaderColumns() throws Exception {
 	
-	ArrayList<String>columns=new ArrayList<String>();
+	ArrayList<String>columns= new ArrayList<>();
 	
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
 	 String line = reader.readLine();
-		Stream.of(line.split(",")).forEach(e -> {
-		  	columns.add(e.trim());
-		});
+		Stream.of(line.split(",")).forEach(e -> columns.add(e.trim()));
 		columns.set(0,"");
 	 reader.close();
 	 return columns;
@@ -37,11 +35,11 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 
 public ArrayList<String[]> getData() {
 	
-	ArrayList<String[]>data=new ArrayList<String[]>();
+	ArrayList<String[]>data= new ArrayList<>();
 	 BufferedReader reader;
 	try {
 		reader = new BufferedReader(new FileReader(file));
-		String line = reader.readLine(); 
+		@SuppressWarnings("UnusedAssignment") String line = reader.readLine();
 		line = reader.readLine();//ignore first line
 		while (line != null) {
 				data.add(Stream.of(line.split(",")).map(String::trim).toArray(String[]::new));	

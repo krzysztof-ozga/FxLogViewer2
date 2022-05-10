@@ -94,23 +94,28 @@ public class GuiController implements Initializable {
             App.mainStage.setTitle(String.format("%s - %s",windowTitle,file.getAbsolutePath()));
 
             chartsContrainer.getItems().clear();
-            if (programID.equals("GPU-Z"))
-                r = new GPUZLogReader(file.getAbsolutePath());
-            else if (programID.equals("HWiNFO"))
-                r = new HWiNFOLogReader(file.getAbsolutePath());
-            else if (programID.equals("MsiAfterburner"))
-                r = new MsiAfterburnerLogReader(file.getAbsolutePath());
-            else if (programID.equals("GXGE"))
-                r = new GigabyteXtremeGammingEngineLogReader(file.getAbsolutePath());
-            else if (programID.equals("SpeedFan"))
-                r = new SpeedFanLogReader(file.getAbsolutePath());
-            else {
-
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Unknown application");
-                alert.setContentText("Application " + programID + " is not supported.");
-                return;
+            switch (programID) {
+                case "GPU-Z":
+                    r = new GPUZLogReader(file.getAbsolutePath());
+                    break;
+                case "HWiNFO":
+                    r = new HWiNFOLogReader(file.getAbsolutePath());
+                    break;
+                case "MsiAfterburner":
+                    r = new MsiAfterburnerLogReader(file.getAbsolutePath());
+                    break;
+                case "GXGE":
+                    r = new GigabyteXtremeGammingEngineLogReader(file.getAbsolutePath());
+                    break;
+                case "SpeedFan":
+                    r = new SpeedFanLogReader(file.getAbsolutePath());
+                    break;
+                default:
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Unknown application");
+                    alert.setContentText("Application " + programID + " is not supported.");
+                    return;
             }
 
             try {
@@ -166,7 +171,7 @@ public class GuiController implements Initializable {
 
         double width = Screen.getPrimary().getBounds().getMaxX();
 
-        int ratio = (data.size() < width) ? 1 : (int) Math.ceil(data.size() / width);
+        int ratio = (data.size() < width) ? 1 : (int) Math.ceil((data.size() / width)*2);
 
         this.filteredData = new ArrayList<>();
         for (var i = 0; i < this.data.size(); i += ratio) {

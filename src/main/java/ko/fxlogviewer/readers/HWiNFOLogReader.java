@@ -20,7 +20,7 @@ public HWiNFOLogReader(String fileName) {
 
 public ArrayList<String>  getHeaderColumns() throws Exception {
 	
-	ArrayList<String>columns=new ArrayList<String>();
+	ArrayList<String>columns= new ArrayList<>();
 	
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
@@ -44,7 +44,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 
 public ArrayList<String[]> getData() {
 	
-	ArrayList<String[]>data=new ArrayList<String[]>();
+	ArrayList<String[]>data= new ArrayList<>();
 	 BufferedReader reader;
 	try {
 		reader = new BufferedReader(new FileReader(file));
@@ -53,14 +53,15 @@ public ArrayList<String[]> getData() {
 		
 		 
 		
-		while (line != null) {
+		while (line != null)
+		{
 			
 			String[] lineArray=line.split(",");
 			ArrayList<String> expLine=new ArrayList<>();
 			
 			if(lineArray[0].trim().equals("Date"))break;
 			
-			 for(int i=0;i<lineArray.length;i++) {
+			for(int i=0;i<lineArray.length;i++) {
 				 
 				 
 				 

@@ -23,9 +23,7 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 	 BufferedReader reader;
 	 reader = new BufferedReader(new FileReader(file));
 	 String line = reader.readLine();
-		Stream.of(line.split("\\t+")).forEach(e -> {
-		  	columns.add(e.trim());
-		});
+		Stream.of(line.split("\\t+")).forEach(e -> columns.add(e.trim()));
 		columns.set(0,"");
 	 reader.close();
 	 return columns;
@@ -33,11 +31,11 @@ public ArrayList<String>  getHeaderColumns() throws Exception {
 
 
 public ArrayList<String[]> getData(){
-	ArrayList<String[]>data=new ArrayList<String[]>();
+	ArrayList<String[]>data= new ArrayList<>();
 	 BufferedReader reader;
 	try {
 		reader = new BufferedReader(new FileReader(file));
-		String line = reader.readLine(); 
+		@SuppressWarnings("UnusedAssignment") String line = reader.readLine();
 		line = reader.readLine();//ignore first line
 		while (line != null) {
 				data.add(Stream.of(line.split("\\t+")).map(String::trim).toArray(String[]::new));	
