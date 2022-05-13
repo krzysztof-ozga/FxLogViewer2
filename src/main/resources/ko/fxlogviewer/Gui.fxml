@@ -10,50 +10,50 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="anchorPane" prefHeight="792.0"
-	prefWidth="1148.0" xmlns="http://javafx.com/javafx/1"
-	xmlns:fx="http://javafx.com/fxml/1" fx:controller="ko.fxlogviewer.GuiController">
-	<children>
-		<MenuBar layoutX="-6.0" layoutY="2.0" minWidth="-Infinity"
-			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-			<menus>
-				<Menu mnemonicParsing="false" text="Open">
-					<items>
-						<MenuItem mnemonicParsing="false"
-							onAction="#handleOpenGpuzLog" text="GPU-Z log" />
-						<MenuItem mnemonicParsing="false"
-							onAction="#handleOpenHWiNFOLog" text="HWiNFO log" />
-						<MenuItem mnemonicParsing="false"
-							onAction="#handleOpenMsiAfterburnerLog" text="MsiAfterburner log" />
-						<MenuItem mnemonicParsing="false"
-							onAction="#handleOpenSpeedFanLog" text="SpeedFan log" />
-						<MenuItem mnemonicParsing="false"
-							onAction="#handleGXGEFanLog"
-							text="Gigabyte Xtreme Gamming Engine log" />
-					</items>
-				</Menu>
-			</menus>
-		</MenuBar>
-		<SplitPane fx:id="chartsContrainer" orientation="VERTICAL"
-			AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-			<items>
-			</items>
-		</SplitPane>
-		<ToolBar layoutX="95.0" layoutY="27.0" prefHeight="35.0"
-			prefWidth="200.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-			<items>
-				<HBox>
-					<children>
-						<Button onAction="#addNewGraph" text=" 📄 Add graph" />
-					</children>
+            prefWidth="1148.0" xmlns="http://javafx.com/javafx/1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ko.fxlogviewer.GuiController">
+    <children>
+        <MenuBar layoutX="-6.0" layoutY="2.0" minWidth="-Infinity"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Open">
+                    <items>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#handleOpenGpuzLog" text="GPU-Z log"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#handleOpenHWiNFOLog" text="HWiNFO log"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#handleOpenMsiAfterburnerLog" text="MsiAfterburner log"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#handleOpenSpeedFanLog" text="SpeedFan log"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#handleGXGEFanLog"
+                                  text="Gigabyte Xtreme Gamming Engine log"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane fx:id="chartsContainer" orientation="VERTICAL"
+                   AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <items>
+            </items>
+        </SplitPane>
+        <ToolBar layoutX="95.0" layoutY="27.0" prefHeight="35.0"
+                 prefWidth="200.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+            <items>
+                <HBox>
+                    <children>
+                        <Button onAction="#addNewGraph" text=" 📄 Add graph"/>
+                    </children>
 
-				</HBox>
-			</items>
-		</ToolBar>
-		<ToolBar layoutX="181.0" layoutY="752.0" maxHeight="-Infinity"
-			minHeight="-Infinity" prefHeight="25.0" prefWidth="200.0"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" />
-	</children>
+                </HBox>
+            </items>
+        </ToolBar>
+        <ToolBar layoutX="181.0" layoutY="752.0" maxHeight="-Infinity"
+                 minHeight="-Infinity" prefHeight="25.0" prefWidth="200.0"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0"/>
+    </children>
 </AnchorPane>

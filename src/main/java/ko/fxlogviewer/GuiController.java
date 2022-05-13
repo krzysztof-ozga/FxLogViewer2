@@ -26,7 +26,7 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class GuiController implements Initializable {
 
-    final String windowTitle="FX Log Viewer 2";
+    final String windowTitle = "FX Log Viewer 2";
 
     private static GuiController singleton;
 
@@ -43,7 +43,7 @@ public class GuiController implements Initializable {
     private AnchorPane anchorPane;
 
     @FXML
-    SplitPane chartsContrainer;
+    SplitPane chartsContainer;
 
 
     ArrayList<String> columns = new ArrayList<>();
@@ -91,9 +91,9 @@ public class GuiController implements Initializable {
 
         if (file != null) {
 
-            App.mainStage.setTitle(String.format("%s - %s",windowTitle,file.getAbsolutePath()));
+            App.mainStage.setTitle(String.format("%s - %s", windowTitle, file.getAbsolutePath()));
 
-            chartsContrainer.getItems().clear();
+            chartsContainer.getItems().clear();
             switch (programID) {
                 case "GPU-Z":
                     r = new GPUZLogReader(file.getAbsolutePath());
@@ -125,7 +125,7 @@ public class GuiController implements Initializable {
 
                 ChartComponent m = new ChartComponent(columns, filteredData);
                 m.setPrefWidth(Double.MAX_VALUE);
-                chartsContrainer.getItems().addAll(m);
+                chartsContainer.getItems().addAll(m);
                 this.updatePrecision();
             } catch (Exception ex) {
                 Alert alert = new Alert(AlertType.ERROR);
@@ -134,9 +134,7 @@ public class GuiController implements Initializable {
                 alert.setContentText("Error" + ex.getMessage());
                 alert.showAndWait();
             }
-
         }
-
     }
 
     @FXML
@@ -151,19 +149,17 @@ public class GuiController implements Initializable {
 
             this.updatePrecision();
             ChartComponent m = new ChartComponent(columns, filteredData);
-            chartsContrainer.getItems().addAll(m);
+            chartsContainer.getItems().addAll(m);
         }
     }
 
     public void removeChart(ChartComponent c) {
-        chartsContrainer.getItems().remove(c);
+        chartsContainer.getItems().remove(c);
     }
 
-    @SuppressWarnings("unused")
     @FXML
     private void changePrecision(@SuppressWarnings("unused") ActionEvent event) {
         this.updatePrecision();
-
     }
 
     private void updatePrecision() {
@@ -171,14 +167,14 @@ public class GuiController implements Initializable {
 
         double width = Screen.getPrimary().getBounds().getMaxX();
 
-        int ratio = (data.size() < width) ? 1 : (int) Math.ceil((data.size() / width)*2);
+        int ratio = (data.size() < width) ? 1 : (int) Math.ceil((data.size() / width) * 2);
 
         this.filteredData = new ArrayList<>();
         for (var i = 0; i < this.data.size(); i += ratio) {
             filteredData.add(this.data.get(i));
         }
 
-        for (Node x : chartsContrainer.getItems()) {
+        for (Node x : chartsContainer.getItems()) {
             ChartComponent chart = (ChartComponent) x;
             chart.data = filteredData;
             chart.updateFirstChoiceBox(null);

@@ -1,7 +1,8 @@
 package ko.fxlogviewer;
+
 public class AppLauncher {
 
     public static void main(String[] args) {
-    App.main(args);
+        App.main(args);
     }
 }

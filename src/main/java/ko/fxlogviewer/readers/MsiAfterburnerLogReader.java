@@ -10,61 +10,59 @@ import ko.fxlogviewer.readers.inter.LogReader;
 
 public class MsiAfterburnerLogReader implements LogReader {
 
-	final String file;
+    final String file;
 
-	public MsiAfterburnerLogReader(String fileName) {
-		this.file = fileName;
-	}
+    public MsiAfterburnerLogReader(String fileName) {
+        this.file = fileName;
+    }
 
-	public ArrayList<String> getHeaderColumns() {
+    public ArrayList<String> getHeaderColumns() {
 
-		ArrayList<String> columns = new ArrayList<>();
+        ArrayList<String> columns = new ArrayList<>();
 
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String line = "";
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String line = "";
 
-			while (true) {
-				line = reader.readLine();
-				if (line.startsWith("02,")) {
-					Stream.of(line.split(",")).forEach(e -> columns.add(e.trim()));
-					columns.remove(0);
-					columns.set(0, "");
-					break;
-				} else
-					continue;
+            while (true) {
+                line = reader.readLine();
+                if (line.startsWith("02,")) {
+                    Stream.of(line.split(",")).forEach(e -> columns.add(e.trim()));
+                    columns.remove(0);
+                    columns.set(0, "");
+                    break;
+                } else
+                    continue;
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return columns;
+    }
 
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return columns;
+    public ArrayList<String[]> getData() {
 
-	}
+        ArrayList<String[]> data = new ArrayList<>();
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null) {
 
-	public ArrayList<String[]> getData(){
+                if (line.startsWith("80,")) {
+                    data.add(Stream.of(line.substring(3).split(",")).map(string -> (string.equals("N/A")) ? "0" : string)
+                            .toArray(String[]::new));
+                }
 
-		ArrayList<String[]> data = new ArrayList<>();
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			String line = reader.readLine();
-			while (line != null) {
-
-				if (line.startsWith("80,")) {
-					data.add(Stream.of(line.substring(3).split(",")).map(string -> (string.equals("N/A")) ? "0" : string)
-							.toArray(String[]::new));
-				}
-
-				line = reader.readLine();
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return data;
-	}
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 
 }

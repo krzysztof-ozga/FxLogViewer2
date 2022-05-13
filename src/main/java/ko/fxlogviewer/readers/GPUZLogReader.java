@@ -8,52 +8,45 @@ import java.util.stream.Stream;
 
 import ko.fxlogviewer.readers.inter.LogReader;
 
-public class GPUZLogReader implements LogReader{
+public class GPUZLogReader implements LogReader {
+
+    final String file;
+
+    public GPUZLogReader(String fileName) {
+        this.file = fileName;
+    }
 
 
- final String file;
+    public ArrayList<String> getHeaderColumns() throws Exception {
 
+        ArrayList<String> columns = new ArrayList<>();
 
-public GPUZLogReader(String fileName) {
-	this.file=fileName;
-}
+        BufferedReader reader;
+        reader = new BufferedReader(new FileReader(file));
+        String line = reader.readLine();
+        Stream.of(line.split(",")).forEach(e -> columns.add(e.trim()));
+        columns.set(0, "");
+        reader.close();
+        return columns;
+    }
 
+    public ArrayList<String[]> getData() {
 
-public ArrayList<String>  getHeaderColumns() throws Exception {
-	
-	ArrayList<String>columns= new ArrayList<>();
-	
-	 BufferedReader reader;
-	 reader = new BufferedReader(new FileReader(file));
-	 String line = reader.readLine();
-		Stream.of(line.split(",")).forEach(e -> columns.add(e.trim()));
-		columns.set(0,"");
-	 reader.close();
-	 return columns;
-}
+        ArrayList<String[]> data = new ArrayList<>();
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            @SuppressWarnings("UnusedAssignment") String line = reader.readLine();
+            line = reader.readLine();//ignore first line
+            while (line != null) {
+                data.add(Stream.of(line.split(",")).map(String::trim).toArray(String[]::new));
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 
-
-public ArrayList<String[]> getData() {
-	
-	ArrayList<String[]>data= new ArrayList<>();
-	 BufferedReader reader;
-	try {
-		reader = new BufferedReader(new FileReader(file));
-		@SuppressWarnings("UnusedAssignment") String line = reader.readLine();
-		line = reader.readLine();//ignore first line
-		while (line != null) {
-				data.add(Stream.of(line.split(",")).map(String::trim).toArray(String[]::new));	
-			line = reader.readLine();
-		}
-		reader.close();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	return data;
-}
-
-
-
-
-	
 }
