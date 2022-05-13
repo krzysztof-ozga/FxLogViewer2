@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +19,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ko.fxlogviewer.readers.GPUZLogReader;
 import ko.fxlogviewer.readers.GigabyteXtremeGammingEngineLogReader;
 import ko.fxlogviewer.readers.HWiNFOLogReader;
@@ -185,6 +188,54 @@ public class GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        App.mainStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+
+            ArrayList<ChartComponent> list = new ArrayList<>();
+            for (Node x : chartsContainer.getItems()) {
+                ChartComponent chart = (ChartComponent) x;
+                list.add(chart);
+            }
+            chartsContainer.getItems().clear();
+            final Timeline animation = new Timeline(
+                    new KeyFrame(Duration.seconds(.5),
+                            actionEvent -> {
+                                for (ChartComponent x : list) {
+                                    chartsContainer.getItems().add(x);
+
+                                }
+                            }
+
+                    ));
+            animation.setCycleCount(1);
+            animation.play();
+
+
+        });
+
+        App.mainStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+
+
+            ArrayList<ChartComponent> list = new ArrayList<>();
+            for (Node x : chartsContainer.getItems()) {
+                ChartComponent chart = (ChartComponent) x;
+                list.add(chart);
+            }
+            chartsContainer.getItems().clear();
+            final Timeline animation = new Timeline(
+                    new KeyFrame(Duration.seconds(.5),
+                            actionEvent -> {
+                                for (ChartComponent x : list) {
+                                    chartsContainer.getItems().add(x);
+
+                                }
+                            }
+
+                    ));
+            animation.setCycleCount(1);
+            animation.play();
+        });
+
     }
 
 }
