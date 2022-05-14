@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -48,6 +49,8 @@ public class GuiController implements Initializable {
     @FXML
     SplitPane chartsContainer;
 
+    @FXML
+    Label statusBarText;
 
     ArrayList<String> columns = new ArrayList<>();
     ArrayList<String[]> data = new ArrayList<>();
@@ -186,54 +189,30 @@ public class GuiController implements Initializable {
         }
     }
 
+    public void reloadChartAfterResize(){
+        ArrayList<Node> list = new ArrayList<>();
+        list.addAll(chartsContainer.getItems());
+        chartsContainer.getItems().clear();
+        statusBarText.textProperty().set("Please wait for chart....");
+        final Timeline animation = new Timeline(
+                new KeyFrame(Duration.seconds(.5),
+                        actionEvent -> {
+                            chartsContainer.getItems().addAll(list);
+                            statusBarText.textProperty().set("Done");
+                        }
+                ));
+        animation.setCycleCount(1);
+        animation.play();
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         App.mainStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-
-            ArrayList<ChartComponent> list = new ArrayList<>();
-            for (Node x : chartsContainer.getItems()) {
-                ChartComponent chart = (ChartComponent) x;
-                list.add(chart);
-            }
-            chartsContainer.getItems().clear();
-            final Timeline animation = new Timeline(
-                    new KeyFrame(Duration.seconds(.5),
-                            actionEvent -> {
-                                for (ChartComponent x : list) {
-                                    chartsContainer.getItems().add(x);
-
-                                }
-                            }
-
-                    ));
-            animation.setCycleCount(1);
-            animation.play();
-
-
+            reloadChartAfterResize();
         });
 
         App.mainStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-
-
-            ArrayList<ChartComponent> list = new ArrayList<>();
-            for (Node x : chartsContainer.getItems()) {
-                ChartComponent chart = (ChartComponent) x;
-                list.add(chart);
-            }
-            chartsContainer.getItems().clear();
-            final Timeline animation = new Timeline(
-                    new KeyFrame(Duration.seconds(.5),
-                            actionEvent -> {
-                                for (ChartComponent x : list) {
-                                    chartsContainer.getItems().add(x);
-
-                                }
-                            }
-
-                    ));
-            animation.setCycleCount(1);
-            animation.play();
+            reloadChartAfterResize();
         });
 
     }
