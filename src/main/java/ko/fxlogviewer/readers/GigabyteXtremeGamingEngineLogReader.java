@@ -8,11 +8,11 @@ import java.util.stream.Stream;
 
 import ko.fxlogviewer.readers.inter.LogReader;
 
-public class GigabyteXtremeGammingEngineLogReader implements LogReader {
+public class GigabyteXtremeGamingEngineLogReader implements LogReader {
 
     final String file;
 
-    public GigabyteXtremeGammingEngineLogReader(String fileName) {
+    public GigabyteXtremeGamingEngineLogReader(String fileName) {
         this.file = fileName;
     }
 

@@ -22,7 +22,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import ko.fxlogviewer.readers.GPUZLogReader;
-import ko.fxlogviewer.readers.GigabyteXtremeGammingEngineLogReader;
+import ko.fxlogviewer.readers.GigabyteXtremeGamingEngineLogReader;
 import ko.fxlogviewer.readers.HWiNFOLogReader;
 import ko.fxlogviewer.readers.MsiAfterburnerLogReader;
 import ko.fxlogviewer.readers.SpeedFanLogReader;
@@ -79,8 +79,8 @@ public class GuiController implements Initializable {
 
     @FXML
     private void handleGXGEFanLog(ActionEvent event) {
-        openSetLogData("GXGE", "Gigabyte Xtreme Gamming Engine log file (*.txt)", "*.txt",
-                "Open Gigabyte Xtreme Gamming Engine Log");
+        openSetLogData("GXGE", "Gigabyte Xtreme Gaming Engine log file (*.txt)", "*.txt",
+                "Open Gigabyte Xtreme Gaming Engine Log");
     }
 
     private void openSetLogData(String programID, String extFilterString, String extFilterString2, String windowTitle) {
@@ -111,7 +111,7 @@ public class GuiController implements Initializable {
                     r = new MsiAfterburnerLogReader(file.getAbsolutePath());
                     break;
                 case "GXGE":
-                    r = new GigabyteXtremeGammingEngineLogReader(file.getAbsolutePath());
+                    r = new GigabyteXtremeGamingEngineLogReader(file.getAbsolutePath());
                     break;
                 case "SpeedFan":
                     r = new SpeedFanLogReader(file.getAbsolutePath());
@@ -164,7 +164,7 @@ public class GuiController implements Initializable {
     }
 
     @FXML
-    private void changePrecision(@SuppressWarnings("unused") ActionEvent event) {
+    private void changePrecision(ActionEvent event) {
         this.updatePrecision();
     }
 
@@ -190,8 +190,7 @@ public class GuiController implements Initializable {
     }
 
     public void reloadChartAfterResize(){
-        ArrayList<Node> list = new ArrayList<>();
-        list.addAll(chartsContainer.getItems());
+        ArrayList<Node> list = new ArrayList<>(chartsContainer.getItems());
         chartsContainer.getItems().clear();
         statusBarText.textProperty().set("Please wait for chart....");
         final Timeline animation = new Timeline(
