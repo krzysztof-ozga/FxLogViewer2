@@ -44,7 +44,6 @@ public class ChartComponent extends Pane implements Initializable {
     @FXML
     private Button closeGraphButton;
 
-
     ArrayList<String> columns;
     ArrayList<String[]> data;
     ChartComponent component;

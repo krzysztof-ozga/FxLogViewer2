@@ -16,7 +16,6 @@ public class GigabyteXtremeGamingEngineLogReader implements LogReader {
         this.file = fileName;
     }
 
-
     public ArrayList<String> getHeaderColumns() throws Exception {
 
         ArrayList<String> columns = new ArrayList<>();
@@ -28,7 +27,6 @@ public class GigabyteXtremeGamingEngineLogReader implements LogReader {
         reader.close();
         return columns;
     }
-
 
     public ArrayList<String[]> getData() {
         ArrayList<String[]> data = new ArrayList<>();

@@ -16,7 +16,6 @@ public class GPUZLogReader implements LogReader {
         this.file = fileName;
     }
 
-
     public ArrayList<String> getHeaderColumns() throws Exception {
 
         ArrayList<String> columns = new ArrayList<>();
